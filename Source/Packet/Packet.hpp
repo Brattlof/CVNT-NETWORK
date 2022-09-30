@@ -7,15 +7,23 @@ namespace CVNT
 
 	struct Message
 	{
-	public:
 		enum Type
 		{
 			CONNECTED,
 			DISCONNECTED
 		};
 
-	public:
 		Type m_Type;
 		ClientID m_ID;
+
+		void Serialize(char* data)
+		{
+			memcpy(data, this, sizeof(Message));
+		}
+
+		void Deserialize(char* data)
+		{
+			memcpy(this, data, sizeof(Message));
+		}
 	};
 }

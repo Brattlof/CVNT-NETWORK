@@ -3,7 +3,7 @@
 #include "pch.hpp"
 
 #include "Client/Client.hpp"
-#include "Message/Message.hpp"
+#include "Packet/Packet.hpp"
 
 namespace CVNT
 {

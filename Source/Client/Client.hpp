@@ -2,7 +2,7 @@
 
 #include "pch.hpp"
 
-#include "Message/Message.hpp"
+#include "Packet/Packet.hpp"
 
 namespace CVNT
 {
