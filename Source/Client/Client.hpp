@@ -18,8 +18,8 @@ namespace CVNT
 
 		// TCP
 		SOCKET m_TCPSocket;
-		std::queue<Message> m_TCPMessageQueue;
-		char m_TCPWriteBuffer[sizeof(Message)];
+		std::queue<Packet> m_TCPMessageQueue;
+		char m_TCPWriteBuffer[sizeof(Packet)];
 		int m_TCPWriteNum;
 	};
 }

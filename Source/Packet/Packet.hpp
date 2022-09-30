@@ -5,7 +5,7 @@ namespace CVNT
 {
 	typedef unsigned int ClientID;
 
-	struct Message
+	struct Packet
 	{
 		enum Type
 		{
@@ -18,12 +18,22 @@ namespace CVNT
 
 		void Serialize(char* data)
 		{
-			memcpy(data, this, sizeof(Message));
+			memcpy(data, this, sizeof(Packet));
 		}
 
 		void Deserialize(char* data)
 		{
-			memcpy(this, data, sizeof(Message));
+			memcpy(this, data, sizeof(Packet));
+		}
+
+		int Send(SOCKET socket)
+		{
+			return send(socket, (char*)this, sizeof(Packet), 0);
+		}
+
+		int	Receive(SOCKET socket)
+		{
+			return recv(socket, (char*)this, sizeof(Packet), 0);
 		}
 	};
 }
