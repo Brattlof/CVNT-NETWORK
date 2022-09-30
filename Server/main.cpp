@@ -11,5 +11,10 @@ int main(void)
 
 	std::cout << "TCP: " << Network.m_TCPSocket << " UDP: " << Network.m_UDPSocket << "\n";
 
+	while (Network.Update())
+	{
+
+	}
+
 	return 0x0;
 }

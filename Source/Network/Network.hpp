@@ -13,18 +13,21 @@ namespace CVNT
 		Network(PCSTR ip, PCSTR port);
 		~Network(void);
 
-		bool Start();
+		bool Start(void);
+		//
+		bool Update(void);
 
 	public:
-		PCSTR m_Ip = NULL;
+		PCSTR m_IP = NULL;
 		PCSTR m_Port = NULL;
 
 		SOCKET m_TCPSocket = NULL;
 		SOCKET m_UDPSocket  = NULL;
+		SOCKET m_AcceptSocket = NULL;
 
 	private:
+		ClientID m_NextClientID = NULL;
 		unsigned int m_ClientNum = NULL;
-		std::unordered_map<SOCKET, ClientID> m_ClientSockets;
-		std::unordered_map<ClientID, Client*> m_Clients;
+		std::unordered_map<SOCKET, ClientID> m_Clients;
 	};
 }

@@ -4,20 +4,14 @@
 
 using namespace CVNT;
 
-Network::Network(const char* ip, const char* port) : m_Ip(ip), m_Port(port) { }
+Network::Network(const char* ip, const char* port) : m_IP(ip), m_Port(port), m_NextClientID(1) { }
 
-Network::~Network()
+Network::~Network(void)
 {
-	while (m_Clients.begin() != m_Clients.end())
-	{
-		delete m_Clients.begin()->second;
-		m_Clients.erase(m_Clients.begin()->first);
-	}
-
 	WSACleanup();
 }
 
-bool Network::Start()
+bool Network::Start(void)
 {
 	WSADATA rWSA;
 
@@ -46,7 +40,7 @@ bool Network::Start()
 	}
 
 	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(m_Ip, m_Port, nullptr, &ai) != 0)
+	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
 	{
 		return false;
 	}
@@ -69,6 +63,24 @@ bool Network::Start()
 	if (bind(m_UDPSocket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
 	{
 		return false;
+	}
+
+	return true;
+}
+
+bool Network::Update()
+{
+	m_AcceptSocket = accept(m_TCPSocket, NULL, NULL);
+
+	if (m_AcceptSocket != INVALID_SOCKET)
+	{
+		m_Clients.insert({ m_AcceptSocket, m_NextClientID });
+		m_NextClientID++;
+	}
+
+	for (auto rClient : m_Clients)
+	{
+
 	}
 
 	return true;
