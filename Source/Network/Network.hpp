@@ -10,7 +10,7 @@ namespace CVNT
 	class Network
 	{
 	public:
-		Network(PCSTR IP, PCSTR PORT);
+		Network(PCSTR ip, PCSTR port);
 		~Network(void);
 
 	public:

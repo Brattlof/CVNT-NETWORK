@@ -4,7 +4,7 @@
 
 using namespace CVNT;
 
-Network::Network(const char* IP, const char* PORT)
+Network::Network(const char* ip, const char* port)
 {
 	WSADATA rWSA;
 
@@ -33,7 +33,7 @@ Network::Network(const char* IP, const char* PORT)
 	}
 
 	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(IP, PORT, nullptr, &ai) != 0)
+	if (getaddrinfo(ip, port, nullptr, &ai) != 0)
 	{
 		return;
 	}
@@ -58,8 +58,8 @@ Network::Network(const char* IP, const char* PORT)
 		return;
 	}
 
-	m_IP = IP;
-	m_Port = PORT;
+	m_IP = ip;
+	m_Port = port;
 }
 
 Network::~Network()
