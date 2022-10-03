@@ -39,25 +39,18 @@ bool Network::Start(void)
 		return false;
 	}
 
-	struct addrinfo* result = nullptr, hints;
-
-	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_INET;
-	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_protocol = IPPROTO_TCP;
-	hints.ai_flags = AI_PASSIVE;
-
-	if (getaddrinfo(m_IP, m_Port, &hints, &result) != 0)
+	struct addrinfo* ai = nullptr;
+	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
 	{
 		return false;
 	}
 
-	if (result->ai_family != AF_INET)
+	if (ai->ai_family != AF_INET)
 	{
 		return false;
 	}
 
-	if (bind(m_Socket, result->ai_addr, (int)result->ai_addrlen) != 0)
+	if (bind(m_Socket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
 	{
 		return false;
 	}
