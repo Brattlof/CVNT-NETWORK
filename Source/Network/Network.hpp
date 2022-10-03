@@ -13,6 +13,7 @@ namespace CVNT
 		Network(PCSTR ip, PCSTR port);
 		~Network(void);
 
+		void SetListener(std::function<void(Packet)> listener);
 		bool Start(void);
 
 	public:
@@ -30,5 +31,6 @@ namespace CVNT
 
 		void Accept(void);
 		void Listen(void);
+		std::function<void(Packet)> m_Listener;
 	};
 }

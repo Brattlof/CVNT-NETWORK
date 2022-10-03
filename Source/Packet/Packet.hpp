@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace CVNT
 {
 	typedef unsigned int ClientID;
@@ -29,12 +28,12 @@ namespace CVNT
 
 		int Send(SOCKET socket)
 		{
-			return send(socket, (char*)this, sizeof(Packet), 0);
+			return send(socket, (char*)this, sizeof(Packet), NULL);
 		}
 
 		int	Receive(SOCKET socket)
 		{
-			return recv(socket, (char*)this, sizeof(Packet), 0);
+			return recv(socket, (char*)this, sizeof(Packet), NULL);
 		}
 	};
 }

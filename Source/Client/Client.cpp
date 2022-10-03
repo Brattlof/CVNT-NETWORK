@@ -11,7 +11,7 @@ Client::Client(PCSTR ip, PCSTR port) : m_IP(ip), m_Port(port)
 
 Client::~Client()
 {
-
+	closesocket(m_TCPSocket);
 }
 
 bool Client::Start(void)
@@ -47,6 +47,12 @@ bool Client::Start(void)
 	}
 
 	if (connect(m_TCPSocket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
+	{
+		return false;
+	}
+
+	Packet packet = { };
+	if (packet.Receive(m_TCPSocket) != 0)
 	{
 		return false;
 	}

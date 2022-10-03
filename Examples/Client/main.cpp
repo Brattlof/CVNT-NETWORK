@@ -11,7 +11,10 @@ int main(void)
 
 	while (true)
 	{
+		CVNT::Packet packet = { };
+		packet.m_Type = CVNT::Packet::EVENT;
 
+		packet.Send(Client.m_TCPSocket);
 	}
 
 	return 0x0;

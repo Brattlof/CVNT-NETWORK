@@ -8,7 +8,15 @@ Network::Network(const char* ip, const char* port) : m_IP(ip), m_Port(port), m_N
 
 Network::~Network(void)
 {
+	closesocket(m_TCPSocket);
+	closesocket(m_UDPSocket);
+	//
 	WSACleanup();
+}
+
+void Network::SetListener(std::function<void(Packet)> listener)
+{
+	m_Listener = listener;
 }
 
 bool Network::Start(void)
@@ -80,6 +88,11 @@ void Network::Accept(void)
 		if (m_AcceptSocket != INVALID_SOCKET)
 		{
 			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
+			//
+			Packet packet = { };
+			packet.m_ID = m_NextClientID;
+			packet.Send(m_TCPSocket);
+			//
 			m_NextClientID++;
 		}
 	}
@@ -91,6 +104,11 @@ void Network::Listen(void)
 {
 	while (true)
 	{
+		Packet packet = { };
 
+		if (packet.Receive(m_TCPSocket) != 0 ||
+			packet.Receive(m_UDPSocket) != 0) continue;
+
+		m_Listener(packet);
 	}
 }
