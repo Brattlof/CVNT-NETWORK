@@ -91,7 +91,7 @@ void Network::Accept(void)
 			int temp = sizeof(accept);
 			getsockname(m_AcceptSocket, (SOCKADDR*)&accept, &temp);
 			//
-			std::cout << "New Connection From: " << inet_ntoa(accept.sin_addr) << "\n";
+			LOGFMT("New connection from %s", inet_ntoa(accept.sin_addr));
 			//
 			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
 			//
