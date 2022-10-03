@@ -87,6 +87,12 @@ void Network::Accept(void)
 
 		if (m_AcceptSocket != INVALID_SOCKET)
 		{
+			SOCKADDR_IN accept;
+			int temp = sizeof(accept);
+			getsockname(m_AcceptSocket, (SOCKADDR*)&accept, &temp);
+			//
+			std::cout << "New Connection From: " << inet_ntoa(accept.sin_addr) << "\n";
+			//
 			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
 			//
 			Packet packet = { };
