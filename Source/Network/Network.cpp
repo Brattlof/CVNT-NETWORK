@@ -13,16 +13,15 @@ Network::~Network(void)
 
 bool Network::Start(void)
 {
-	WSADATA rWSA;
+	WSADATA wsa;
+	int error = WSAStartup(0x0202, &wsa);
 
-	int rError = WSAStartup(0x0202, &rWSA);
-
-	if (rError != 0)
+	if (error != 0)
 	{
 		return false;
 	}
 
-	if (rWSA.wVersion != 0x0202)
+	if (wsa.wVersion != 0x0202)
 	{
 		return false;
 	}
@@ -55,7 +54,7 @@ bool Network::Start(void)
 		return false;
 	}
 
-	if (listen(m_TCPSocket, 1) != 0)
+	if (listen(m_TCPSocket, SOMAXCONN) != 0)
 	{
 		return false;
 	}
@@ -74,7 +73,7 @@ bool Network::Update()
 
 	if (m_AcceptSocket != INVALID_SOCKET)
 	{
-		m_Clients.insert({ m_AcceptSocket, m_NextClientID });
+		m_Clients.insert({ m_NextClientID, m_AcceptSocket });
 		m_NextClientID++;
 	}
 

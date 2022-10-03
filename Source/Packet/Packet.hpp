@@ -10,7 +10,8 @@ namespace CVNT
 		enum Type
 		{
 			CONNECTED,
-			DISCONNECTED
+			DISCONNECTED,
+			EVENT
 		};
 
 		Type m_Type;

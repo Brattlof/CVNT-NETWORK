@@ -9,17 +9,16 @@ namespace CVNT
 	class Client
 	{
 	public:
-		Client();
-		Client(ClientID ID);
+		Client(PCSTR ip, PCSTR port);
 		~Client();
 
-	public:
-		ClientID m_ID;
+		bool Start(void);
 
-		// TCP
-		SOCKET m_TCPSocket;
-		std::queue<Packet> m_TCPMessageQueue;
-		char m_TCPWriteBuffer[sizeof(Packet)];
-		int m_TCPWriteNum;
+	public:
+		PCSTR m_IP = NULL;
+		PCSTR m_Port = NULL;
+
+		ClientID m_ID = NULL;
+		SOCKET m_TCPSocket = NULL;
 	};
 }

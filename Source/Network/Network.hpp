@@ -23,11 +23,12 @@ namespace CVNT
 
 		SOCKET m_TCPSocket = NULL;
 		SOCKET m_UDPSocket  = NULL;
+		//
 		SOCKET m_AcceptSocket = NULL;
 
 	private:
 		ClientID m_NextClientID = NULL;
 		unsigned int m_ClientNum = NULL;
-		std::unordered_map<SOCKET, ClientID> m_Clients;
+		std::unordered_map<ClientID, SOCKET> m_Clients;
 	};
 }
