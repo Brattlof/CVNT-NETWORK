@@ -64,23 +64,33 @@ bool Network::Start(void)
 		return false;
 	}
 
+	std::thread(&Network::Accept, this).join();
+
 	return true;
 }
 
-bool Network::Update()
+void Network::Accept(void)
 {
-	m_AcceptSocket = accept(m_TCPSocket, NULL, NULL);
+	std::thread listener(&Network::Listen, this);
 
-	if (m_AcceptSocket != INVALID_SOCKET)
+	while (true)
 	{
-		m_Clients.insert({ m_NextClientID, m_AcceptSocket });
-		m_NextClientID++;
+		m_AcceptSocket = accept(m_TCPSocket, NULL, NULL);
+
+		if (m_AcceptSocket != INVALID_SOCKET)
+		{
+			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
+			m_NextClientID++;
+		}
 	}
 
-	for (auto rClient : m_Clients)
+	listener.join();
+}
+
+void Network::Listen(void)
+{
+	while (true)
 	{
 
 	}
-
-	return true;
 }

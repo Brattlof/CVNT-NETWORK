@@ -11,9 +11,9 @@ int main(void)
 
 	std::cout << "TCP: " << Network.m_TCPSocket << " UDP: " << Network.m_UDPSocket << "\n";
 
-	while (Network.Update())
+	while (true)
 	{
-
+		//printf("Clients: %zi\n", Network.m_Clients.size());
 	}
 
 	return 0x0;

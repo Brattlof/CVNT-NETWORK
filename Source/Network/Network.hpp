@@ -14,8 +14,6 @@ namespace CVNT
 		~Network(void);
 
 		bool Start(void);
-		//
-		bool Update(void);
 
 	public:
 		PCSTR m_IP = NULL;
@@ -28,7 +26,9 @@ namespace CVNT
 
 	private:
 		ClientID m_NextClientID = NULL;
-		unsigned int m_ClientNum = NULL;
 		std::unordered_map<ClientID, SOCKET> m_Clients;
+
+		void Accept(void);
+		void Listen(void);
 	};
 }
