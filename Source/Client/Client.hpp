@@ -12,7 +12,7 @@ namespace CVNT
 		Client(PCSTR ip, PCSTR port);
 		~Client();
 
-		bool Start(void);
+		bool Connect(void);
 
 	public:
 		PCSTR m_IP = NULL;

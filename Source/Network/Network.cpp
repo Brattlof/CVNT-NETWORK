@@ -111,10 +111,10 @@ void Network::Listen(void)
 	while (true)
 	{
 		Packet packet = { };
-
+		
 		if (packet.Receive(m_TCPSocket) != 0 ||
 			packet.Receive(m_UDPSocket) != 0) continue;
-
+		
 		m_Listener(packet);
 	}
 }

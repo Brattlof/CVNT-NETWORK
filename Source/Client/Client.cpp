@@ -14,7 +14,7 @@ Client::~Client()
 	closesocket(m_TCPSocket);
 }
 
-bool Client::Start(void)
+bool Client::Connect(void)
 {
 	WSADATA wsa;
 	int error = WSAStartup(0x0202, &wsa);
@@ -52,7 +52,14 @@ bool Client::Start(void)
 	}
 
 	Packet packet = { };
+
 	if (packet.Receive(m_TCPSocket) != 0)
+	{
+		return false;
+	}
+
+	packet.m_Type = Packet::CONNECTED;
+	if (packet.Send(m_TCPSocket) != 0)
 	{
 		return false;
 	}
