@@ -19,6 +19,6 @@ namespace CVNT
 		PCSTR m_Port = NULL;
 
 		ClientID m_ID = NULL;
-		SOCKET m_TCPSocket = NULL;
+		SOCKET m_Socket = NULL;
 	};
 }

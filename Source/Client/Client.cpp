@@ -11,7 +11,7 @@ Client::Client(PCSTR ip, PCSTR port) : m_IP(ip), m_Port(port)
 
 Client::~Client()
 {
-	closesocket(m_TCPSocket);
+	closesocket(m_Socket);
 }
 
 bool Client::Connect(void)
@@ -29,37 +29,43 @@ bool Client::Connect(void)
 		return false;
 	}
 
-	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
+	struct addrinfo* result = nullptr, hints;
+
+	ZeroMemory(&hints, sizeof(hints));
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+
+	if (getaddrinfo(m_IP, m_Port, &hints, &result) != 0)
 	{
 		return false;
 	}
 
-	if (ai->ai_family != AF_INET)
+	if (result->ai_family != AF_INET)
 	{
 		return false;
 	}
 
-	m_TCPSocket = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
-	if (m_TCPSocket == INVALID_SOCKET)
+	m_Socket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+	if (m_Socket == INVALID_SOCKET)
 	{
 		return false;
 	}
 
-	if (connect(m_TCPSocket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
+	if (connect(m_Socket, result->ai_addr, (int)result->ai_addrlen) != 0)
 	{
 		return false;
 	}
 
 	Packet packet = { };
 
-	if (packet.Receive(m_TCPSocket) != 0)
+	if (packet.Receive(m_Socket) != 0)
 	{
 		return false;
 	}
 
 	packet.m_Type = Packet::CONNECTED;
-	if (packet.Send(m_TCPSocket) != 0)
+	if (packet.Send(m_Socket) != 0)
 	{
 		return false;
 	}

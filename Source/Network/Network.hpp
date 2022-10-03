@@ -20,8 +20,7 @@ namespace CVNT
 		PCSTR m_IP = NULL;
 		PCSTR m_Port = NULL;
 
-		SOCKET m_TCPSocket = NULL;
-		SOCKET m_UDPSocket  = NULL;
+		SOCKET m_Socket = NULL;
 		//
 		SOCKET m_AcceptSocket = NULL;
 

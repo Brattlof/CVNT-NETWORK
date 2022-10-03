@@ -14,7 +14,7 @@ int main(void)
 	{
 		CVNT::Packet packet = { };
 		packet.m_Type = CVNT::Packet::EVENT;
-		packet.Send(Client.m_TCPSocket);
+		packet.Send(Client.m_Socket);
 	}
 
 	return 0x0;

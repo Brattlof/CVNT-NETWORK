@@ -8,8 +8,7 @@ Network::Network(const char* ip, const char* port) : m_IP(ip), m_Port(port), m_N
 
 Network::~Network(void)
 {
-	closesocket(m_TCPSocket);
-	closesocket(m_UDPSocket);
+	closesocket(m_Socket);
 	//
 	WSACleanup();
 }
@@ -34,40 +33,36 @@ bool Network::Start(void)
 		return false;
 	}
 
-	m_TCPSocket = socket(AF_INET, SOCK_STREAM, 0);
-	if (m_TCPSocket == INVALID_SOCKET)
+	m_Socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (m_Socket == INVALID_SOCKET)
 	{
 		return false;
 	}
 
-	m_UDPSocket = socket(AF_INET, SOCK_DGRAM, 0);
-	if (m_UDPSocket == INVALID_SOCKET)
+	struct addrinfo* result = nullptr, hints;
+
+	ZeroMemory(&hints, sizeof(hints));
+	hints.ai_family = AF_INET;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_flags = AI_PASSIVE;
+
+	if (getaddrinfo(m_IP, m_Port, &hints, &result) != 0)
 	{
 		return false;
 	}
 
-	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
+	if (result->ai_family != AF_INET)
 	{
 		return false;
 	}
 
-	if (ai->ai_family != AF_INET)
+	if (bind(m_Socket, result->ai_addr, (int)result->ai_addrlen) != 0)
 	{
 		return false;
 	}
 
-	if (bind(m_TCPSocket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
-	{
-		return false;
-	}
-
-	if (listen(m_TCPSocket, SOMAXCONN) != 0)
-	{
-		return false;
-	}
-
-	if (bind(m_UDPSocket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
+	if (listen(m_Socket, SOMAXCONN) != 0)
 	{
 		return false;
 	}
@@ -83,7 +78,7 @@ void Network::Accept(void)
 
 	while (true)
 	{
-		m_AcceptSocket = accept(m_TCPSocket, NULL, NULL);
+		m_AcceptSocket = accept(m_Socket, NULL, NULL);
 
 		if (m_AcceptSocket != INVALID_SOCKET)
 		{
@@ -97,7 +92,7 @@ void Network::Accept(void)
 			//
 			Packet packet = { };
 			packet.m_ID = m_NextClientID;
-			packet.Send(m_TCPSocket);
+			packet.Send(m_Socket);
 			//
 			m_NextClientID++;
 		}
@@ -112,8 +107,7 @@ void Network::Listen(void)
 	{
 		Packet packet = { };
 		
-		if (packet.Receive(m_TCPSocket) <= 0 ||
-			packet.Receive(m_UDPSocket) <= 0) continue;
+		if (packet.Receive(m_Socket) <= 0) continue;
 		
 		m_Listener(packet);
 	}
