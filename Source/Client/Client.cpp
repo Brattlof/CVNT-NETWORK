@@ -47,12 +47,12 @@ bool Client::Connect(void)
 		return false;
 	}
 
-	char kekw[1];
-	kekw[0] = 1337;
-
-	Packet packet;
-	packet.Serialize(kekw);
-	packet.Send(m_Socket);
+	u_long im = 1;
+	if (ioctlsocket(m_Socket, FIONBIO, &im) == SOCKET_ERROR)
+	{
+		LOG("Failed ioctlsocket");
+		return false;
+	}
 
 	return true;
 }

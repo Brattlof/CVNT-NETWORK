@@ -34,6 +34,13 @@ bool Network::Start(void)
 		LOG("Failed creating socket");
 		return false;
 	}
+
+	u_long im = 1;
+	if (ioctlsocket(m_Socket, FIONBIO, &im) == SOCKET_ERROR)
+	{
+		LOG("Failed ioctlsocket");
+		return false;
+	}
 	//
 	sockaddr_in hint = { };
 	ZeroMemory(&hint, sizeof(hint));
@@ -93,6 +100,7 @@ void Network::Listen(void)
 	while (true)
 	{
 		Packet packet = { };
+
 		
 		if (packet.Receive(m_Socket) <= 0) continue;
 		
