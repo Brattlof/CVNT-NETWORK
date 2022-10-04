@@ -89,7 +89,7 @@ void Network::Accept(void)
 			int temp = sizeof(accept);
 			getsockname(m_AcceptSocket, (SOCKADDR*)&accept, &temp);
 			//
-			LOGFMT("New connection[%i] from %s", m_NextClientID, inet_ntoa(accept.sin_addr));
+			LOGFMT("New client[%i] from %s", m_NextClientID, inet_ntoa(accept.sin_addr));
 			//
 			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
 			//

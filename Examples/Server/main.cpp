@@ -4,7 +4,20 @@
 
 void Listener(CVNT::Packet packet)
 {
-	LOG(packet.m_Type);
+	switch (packet.m_Type)
+	{
+		case CVNT::Packet::DISCONNECTED:
+		{
+			LOGFMT("Client[%i] disconnected", packet.m_ID);
+			break;
+		}
+		
+		default:
+		{
+			LOG("?");
+			break;
+		}
+	}
 }
 
 int main(void)
