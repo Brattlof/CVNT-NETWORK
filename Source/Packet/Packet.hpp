@@ -8,7 +8,6 @@ namespace CVNT
 	{
 		enum Type
 		{
-			CONNECTED,
 			DISCONNECTED,
 			EVENT
 		};

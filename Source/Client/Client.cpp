@@ -11,6 +11,11 @@ Client::Client(PCSTR ip, u_short port) : m_IP(ip), m_Port(port)
 
 Client::~Client()
 {
+	Packet packet = { };
+	packet.m_Type = Packet::DISCONNECTED;
+	packet.m_ID = m_ID;
+	packet.Send(m_Socket);
+
 	closesocket(m_Socket);
 }
 
