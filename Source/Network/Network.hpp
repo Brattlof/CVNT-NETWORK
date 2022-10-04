@@ -17,15 +17,16 @@ namespace CVNT
 		bool Start(void);
 
 	public:
+		std::unordered_map<ClientID, SOCKET> m_Clients;
+
+	private:
 		u_short m_Port = NULL;
 		//
 		SOCKET m_Socket = NULL;
 		//
 		SOCKET m_AcceptSocket = NULL;
 
-	private:
 		ClientID m_NextClientID = NULL;
-		std::unordered_map<ClientID, SOCKET> m_Clients;
 
 		void Accept(void);
 		void Listen(void);
