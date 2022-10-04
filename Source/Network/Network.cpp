@@ -105,10 +105,8 @@ void Network::Listen(void)
 		{
 			if (packet.Receive(x.second) > 0)
 			{
-				LOG(packet.m_Type);
+				m_Listener(packet);
 			}
 		}
-		
-		//m_Listener(packet);
 	}
 }
