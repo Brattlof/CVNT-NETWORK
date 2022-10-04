@@ -11,5 +11,10 @@
 #include <thread>
 #include <functional>
 
+#ifdef _DEBUG
 #define LOG(...) std::cout << "[LOG] " << __VA_ARGS__ << "\n"
 #define LOGFMT(fmt, ...) printf("[LOG] " fmt "\n", __VA_ARGS__)
+#else
+#define LOG(...)
+#define LOGFMT(...)
+#endif

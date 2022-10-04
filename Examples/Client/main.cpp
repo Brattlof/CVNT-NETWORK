@@ -13,17 +13,18 @@ int main(void)
 		return 0x1;
 	}
 
+	LOG("Connected");
+
 	CVNT::Packet packet;
 	packet.m_ID = Client->m_ID;
 	packet.m_Type = CVNT::Packet::EVENT;
 
-	std::string input;
 	while (true)
 	{
+		std::string input;
 		std::cin >> input;
 
-		if (input == "exit")
-			break;
+		if (input == "exit") break;
 
 		packet.Send(Client->m_Socket);
 	}
