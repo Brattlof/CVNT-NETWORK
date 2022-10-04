@@ -23,7 +23,7 @@ namespace CVNT
 		//
 		SOCKET m_AcceptSocket = NULL;
 
-	public:
+	private:
 		ClientID m_NextClientID = NULL;
 		std::unordered_map<ClientID, SOCKET> m_Clients;
 
