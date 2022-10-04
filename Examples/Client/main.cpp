@@ -15,7 +15,7 @@ int main(void)
 
 	LOG("Connected");
 
-	CVNT::Packet packet;
+	CVNT::Packet packet = { };
 	packet.m_ID = Client->m_ID;
 	packet.m_Type = CVNT::Packet::EVENT;
 
