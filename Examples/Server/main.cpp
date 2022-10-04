@@ -16,9 +16,5 @@ int main(void)
 	if (!Network.Start())
 		return 0x1;
 
-	while (true)
-	{
-	}
-
 	return 0x0;
 }
