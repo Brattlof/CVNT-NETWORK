@@ -13,6 +13,7 @@ int main(void)
 		return 0x1;
 	}
 
+	Sleep(1000);
 	delete Client;
 
 	return 0x0;
