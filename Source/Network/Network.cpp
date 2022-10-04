@@ -86,7 +86,7 @@ void Network::Accept(void)
 			//
 			Packet packet = { };
 			packet.m_ID = m_NextClientID;
-			packet.Send(m_Socket);
+			packet.Send(m_AcceptSocket);
 			//
 			m_NextClientID++;
 		}
@@ -100,9 +100,15 @@ void Network::Listen(void)
 	while (true)
 	{
 		Packet packet = { };
+
+		for (auto x : m_Clients)
+		{
+			if (packet.Receive(x.second) > 0)
+			{
+				LOG(packet.m_Type);
+			}
+		}
 		
-		if (packet.Receive(m_Socket) <= 0) continue;
-		
-		m_Listener(packet);
+		//m_Listener(packet);
 	}
 }

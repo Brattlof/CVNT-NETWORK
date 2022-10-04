@@ -11,6 +11,8 @@ int main(void)
 {
 	CVNT::Network Network(666);
 
+	Network.SetListener(Listener);
+
 	if (!Network.Start())
 		return 0x1;
 
