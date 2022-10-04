@@ -82,6 +82,9 @@ void Network::Accept(void)
 
 		if (m_AcceptSocket != INVALID_SOCKET)
 		{
+			char value = 1;
+			setsockopt(m_AcceptSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
+			//
 			SOCKADDR_IN accept;
 			int temp = sizeof(accept);
 			getsockname(m_AcceptSocket, (SOCKADDR*)&accept, &temp);

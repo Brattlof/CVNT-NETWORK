@@ -4,7 +4,7 @@
 
 void Listener(CVNT::Packet packet)
 {
-	printf("Recieved Packet\n");
+	LOG(packet.m_Type);
 }
 
 int main(void)

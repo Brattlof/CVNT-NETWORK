@@ -63,5 +63,8 @@ bool Client::Connect(void)
 		return false;
 	}
 
+	char value = 1;
+	setsockopt(m_Socket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
+
 	return true;
 }
