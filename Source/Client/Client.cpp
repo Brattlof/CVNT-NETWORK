@@ -4,7 +4,7 @@
 
 using namespace CVNT;
 
-Client::Client(PCSTR ip, PCSTR port) : m_IP(ip), m_Port(port)
+Client::Client(PCSTR ip, u_short port) : m_IP(ip), m_Port(port)
 {
 
 }
@@ -17,52 +17,42 @@ Client::~Client()
 bool Client::Connect(void)
 {
 	WSADATA wsa;
-	int error = WSAStartup(0x0202, &wsa);
-
-	if (error != 0)
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 	{
+		LOG("WSAStartup failed");
 		return false;
 	}
-
-	if (wsa.wVersion != 0x0202)
-	{
-		return false;
-	}
-
-	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
-	{
-		return false;
-	}
-
-	if (ai->ai_family != AF_INET)
-	{
-		return false;
-	}
-
-	m_Socket = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+	//
+	m_Socket = socket(AF_INET, SOCK_STREAM, NULL);
 	if (m_Socket == INVALID_SOCKET)
 	{
+		LOG("Failed creating socket");
 		return false;
 	}
-
-	if (connect(m_Socket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
+	//
+	sockaddr_in hint = { };
+	ZeroMemory(&hint, sizeof(hint));
+	//
+	hint.sin_family = AF_INET;
+	hint.sin_port = htons(m_Port);
+	if (inet_pton(AF_INET, m_IP, &hint.sin_addr) <= 0)
 	{
+		LOG("Invalid IP");
 		return false;
 	}
 
-	Packet packet = { };
-
-	if (packet.Receive(m_Socket) != 0)
+	if (connect(m_Socket, (sockaddr*)&hint, sizeof(hint)) != 0)
 	{
+		LOG("Failed connecting");
 		return false;
 	}
 
-	packet.m_Type = Packet::CONNECTED;
-	if (packet.Send(m_Socket) != 0)
-	{
-		return false;
-	}
+	char kekw[1];
+	kekw[0] = 1337;
+
+	Packet packet;
+	packet.Serialize(kekw);
+	packet.Send(m_Socket);
 
 	return true;
 }

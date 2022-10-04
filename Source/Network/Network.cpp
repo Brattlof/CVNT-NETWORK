@@ -4,10 +4,11 @@
 
 using namespace CVNT;
 
-Network::Network(const char* ip, const char* port) : m_IP(ip), m_Port(port), m_NextClientID(1) { }
+Network::Network(u_short port) : m_Port(port), m_NextClientID(1) { }
 
 Network::~Network(void)
 {
+	closesocket(m_AcceptSocket);
 	closesocket(m_Socket);
 	//
 	WSACleanup();
@@ -20,46 +21,39 @@ void Network::SetListener(std::function<void(Packet)> listener)
 
 bool Network::Start(void)
 {
-	WSADATA wsa;
-	int error = WSAStartup(0x0202, &wsa);
-
-	if (error != 0)
+	WSAData wsa;
+	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 	{
+		LOG("WSAStartup failed\n");
 		return false;
 	}
-
-	if (wsa.wVersion != 0x0202)
-	{
-		return false;
-	}
-
-	m_Socket = socket(AF_INET, SOCK_STREAM, 0);
+	//
+	m_Socket = socket(AF_INET, SOCK_STREAM, NULL);
 	if (m_Socket == INVALID_SOCKET)
 	{
+		LOG("Failed creating socket");
 		return false;
 	}
-
-	struct addrinfo* ai = nullptr;
-	if (getaddrinfo(m_IP, m_Port, nullptr, &ai) != 0)
+	//
+	sockaddr_in hint = { };
+	ZeroMemory(&hint, sizeof(hint));
+	//
+	hint.sin_family = AF_INET;
+	hint.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
+	hint.sin_port = htons(m_Port);
+	//
+	if (bind(m_Socket, (sockaddr*)&hint, sizeof(hint)) != 0)
 	{
+		LOG("Failed bind");
 		return false;
 	}
-
-	if (ai->ai_family != AF_INET)
-	{
-		return false;
-	}
-
-	if (bind(m_Socket, ai->ai_addr, (int)ai->ai_addrlen) != 0)
-	{
-		return false;
-	}
-
+	//
 	if (listen(m_Socket, SOMAXCONN) != 0)
 	{
+		LOG("Failed listen");
 		return false;
 	}
-
+	//
 	std::thread(&Network::Accept, this).join();
 
 	return true;

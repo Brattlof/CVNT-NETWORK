@@ -9,12 +9,14 @@ void Listener(CVNT::Packet packet)
 
 int main(void)
 {
-	CVNT::Network Network("127.0.0.1", "666");
-
-	Network.SetListener(Listener);
+	CVNT::Network Network(666);
 
 	if (!Network.Start())
 		return 0x1;
+
+	while (true)
+	{
+	}
 
 	return 0x0;
 }

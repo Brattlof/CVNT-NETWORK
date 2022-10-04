@@ -4,7 +4,7 @@
 
 int main(void)
 {
-	CVNT::Client Client("127.0.0.1", "666");
+	CVNT::Client Client("127.0.0.1", 666);
 
 	LOG("Connecting to server...");
 	if (!Client.Connect())

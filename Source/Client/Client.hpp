@@ -9,14 +9,14 @@ namespace CVNT
 	class Client
 	{
 	public:
-		Client(PCSTR ip, PCSTR port);
+		Client(PCSTR ip, u_short port);
 		~Client();
 
 		bool Connect(void);
 
 	public:
 		PCSTR m_IP = NULL;
-		PCSTR m_Port = NULL;
+		u_short m_Port = NULL;
 
 		ClientID m_ID = NULL;
 		SOCKET m_Socket = NULL;
