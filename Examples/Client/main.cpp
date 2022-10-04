@@ -16,9 +16,18 @@ int main(void)
 	CVNT::Packet packet;
 	packet.m_ID = Client->m_ID;
 	packet.m_Type = CVNT::Packet::EVENT;
-	packet.Send(Client->m_Socket);
 
-	Sleep(1000);
+	std::string input;
+	while (true)
+	{
+		std::cin >> input;
+
+		if (input == "exit")
+			break;
+
+		packet.Send(Client->m_Socket);
+	}
+
 	delete Client;
 
 	return 0x0;
