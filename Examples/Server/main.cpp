@@ -8,13 +8,19 @@ void Listener(CVNT::Packet packet)
 	{
 		case CVNT::Packet::DISCONNECTED:
 		{
-			LOGFMT("Client[%i] disconnected", packet.m_ID);
+			LOGFMT("Client[%i] disconnect packet", packet.m_ID);
+			break;
+		}
+
+		case CVNT::Packet::EVENT:
+		{
+			LOGFMT("Client[%i] event packet", packet.m_ID);
 			break;
 		}
 		
 		default:
 		{
-			LOG("?");
+			LOGFMT("Client[%i] unknown packet", packet.m_ID);
 			break;
 		}
 	}

@@ -13,6 +13,11 @@ int main(void)
 		return 0x1;
 	}
 
+	CVNT::Packet packet;
+	packet.m_ID = Client->m_ID;
+	packet.m_Type = CVNT::Packet::EVENT;
+	packet.Send(Client->m_Socket);
+
 	Sleep(1000);
 	delete Client;
 
