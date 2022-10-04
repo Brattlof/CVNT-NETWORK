@@ -37,6 +37,7 @@
 *.vcxproj
 *.vcxproj.user
 *.vcxproj.filters
+DvlErrLog.txt
 
 # Binary Dir
 Binaries/

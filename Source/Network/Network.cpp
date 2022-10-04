@@ -21,6 +21,12 @@ void Network::SetListener(std::function<void(Packet)> listener)
 
 bool Network::Start(void)
 {
+	if (!m_Listener)
+	{
+		LOG("Please set a listener function");
+		return false;
+	}
+
 	WSAData wsa;
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 	{
