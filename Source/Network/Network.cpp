@@ -1,6 +1,6 @@
-#include "pch.hpp"
+#include <CVNT.hpp>
 
-#include "Network.hpp"
+#include <Network/Network.hpp>
 
 using namespace CVNT;
 

@@ -1,6 +1,6 @@
-#include "pch.hpp"
+#include <CVNT.hpp>
 
-#include "Client.hpp"
+#include <Client/Client.hpp>
 
 using namespace CVNT;
 

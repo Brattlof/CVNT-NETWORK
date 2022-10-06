@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.hpp"
+#include <CVNT.hpp>
 
 #include "Client/Client.hpp"
 #include "Packet/Packet.hpp"
