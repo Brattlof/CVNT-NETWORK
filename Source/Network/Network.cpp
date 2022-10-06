@@ -91,7 +91,7 @@ void Network::Accept(void)
 			//
 			LOGFMT("New client[%i] from %s", m_NextClientID, inet_ntoa(accept.sin_addr));
 			//
-			m_Clients.insert({ m_AcceptSocket, m_NextClientID });
+			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
 			//
 			Packet packet = { };
 			packet.Send(m_AcceptSocket);
@@ -111,9 +111,9 @@ void Network::Listen(void)
 
 		for (auto client : m_Clients)
 		{
-			if (packet.Receive(client.first) > 0)
+			if (packet.Receive(client.second) > 0)
 			{
-				m_Listener(packet, client.second);
+				m_Listener(packet, client.first);
 			}
 		}
 	}

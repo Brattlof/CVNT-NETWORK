@@ -17,7 +17,7 @@ namespace CVNT
 		bool Start(void);
 
 	public:
-		std::unordered_map<SOCKET, unsigned int> m_Clients;
+		std::unordered_map<unsigned int /* CLIENT ID */, SOCKET> m_Clients;
 
 	private:
 		u_short m_Port = NULL;

@@ -8,25 +8,27 @@ enum class CVNT::PacketType // Example
 	TEST
 };
 
+CVNT::Network Network(666);
+
 void Listener(CVNT::Packet packet, unsigned int client_id)
 {
 	switch (packet.m_Type)
 	{
 		case CVNT::PacketType::EVENT:
 		{
-			LOGFMT("Client[%i] event packet", client_id);
+			LOGFMT("Client[%i] event packet socket[%i]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 
 		case CVNT::PacketType::TEST:
 		{
-			LOGFMT("Client[%i] test packet", client_id);
+			LOGFMT("Client[%i] test packet socket[%i]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 
 		default:
 		{
-			LOGFMT("Client[%i] unknown packet", client_id);
+			LOGFMT("Client[%i] unknown packet socket[%i]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 	}
@@ -34,8 +36,6 @@ void Listener(CVNT::Packet packet, unsigned int client_id)
 
 int main(void)
 {
-	CVNT::Network Network(666);
-
 	Network.SetListener(Listener);
 
 	if (!Network.Start())
