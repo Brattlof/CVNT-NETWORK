@@ -4,7 +4,8 @@
 
 enum class CVNT::PacketType // Example
 {
-	EVENT
+	EVENT,
+	TEST
 };
 
 int main(void)
@@ -29,7 +30,7 @@ int main(void)
 
 		CVNT::Packet packet = { };
 		packet.m_ID = Client->m_ID;
-		packet.m_Type = CVNT::PacketType::EVENT;
+		packet.m_Type = CVNT::PacketType::TEST;
 		
 		packet.Send(Client->m_Socket);
 	}

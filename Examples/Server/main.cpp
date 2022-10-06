@@ -4,7 +4,8 @@
 
 enum class CVNT::PacketType // Example
 {
-	EVENT
+	EVENT,
+	TEST
 };
 
 void Listener(CVNT::Packet packet)
@@ -17,8 +18,15 @@ void Listener(CVNT::Packet packet)
 			break;
 		}
 
+		case CVNT::PacketType::TEST:
+		{
+			LOGFMT("Client[%i] test packet", packet.m_ID);
+			break;
+		}
+
 		default:
 		{
+			LOGFMT("Client[%i] unknown packet", packet.m_ID);
 			break;
 		}
 	}

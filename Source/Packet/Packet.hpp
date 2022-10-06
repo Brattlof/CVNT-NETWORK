@@ -12,6 +12,8 @@ namespace CVNT
 	{
 		PacketType m_Type;
 		ClientID m_ID;
+
+		unsigned int m_DataSize;
 		char* m_Data;
 
 		int Send(SOCKET socket)
