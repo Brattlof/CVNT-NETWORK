@@ -13,11 +13,11 @@ namespace CVNT
 		Network(u_short port);
 		~Network(void);
 
-		void SetListener(std::function<void(Packet)> listener);
+		void SetListener(std::function<void(Packet, unsigned int /* CLIENT ID */)> listener);
 		bool Start(void);
 
 	public:
-		std::unordered_map<ClientID, SOCKET> m_Clients;
+		std::unordered_map<SOCKET, unsigned int> m_Clients;
 
 	private:
 		u_short m_Port = NULL;
@@ -26,10 +26,10 @@ namespace CVNT
 		//
 		SOCKET m_AcceptSocket = NULL;
 
-		ClientID m_NextClientID = NULL;
+		unsigned int m_NextClientID = NULL;
 
 		void Accept(void);
 		void Listen(void);
-		std::function<void(Packet)> m_Listener;
+		std::function<void(Packet, unsigned int /* CLIENT ID */)> m_Listener;
 	};
 }

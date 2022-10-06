@@ -8,25 +8,25 @@ enum class CVNT::PacketType // Example
 	TEST
 };
 
-void Listener(CVNT::Packet packet)
+void Listener(CVNT::Packet packet, unsigned int client_id)
 {
 	switch (packet.m_Type)
 	{
 		case CVNT::PacketType::EVENT:
 		{
-			LOGFMT("Client[%i] event packet", packet.m_ID);
+			LOGFMT("Client[%i] event packet", client_id);
 			break;
 		}
 
 		case CVNT::PacketType::TEST:
 		{
-			LOGFMT("Client[%i] test packet", packet.m_ID);
+			LOGFMT("Client[%i] test packet", client_id);
 			break;
 		}
 
 		default:
 		{
-			LOGFMT("Client[%i] unknown packet", packet.m_ID);
+			LOGFMT("Client[%i] unknown packet", client_id);
 			break;
 		}
 	}

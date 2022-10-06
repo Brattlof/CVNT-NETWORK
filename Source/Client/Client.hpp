@@ -18,7 +18,6 @@ namespace CVNT
 		PCSTR m_IP = NULL;
 		u_short m_Port = NULL;
 
-		ClientID m_ID = NULL;
 		SOCKET m_Socket = NULL;
 	};
 }

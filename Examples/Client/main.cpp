@@ -29,7 +29,6 @@ int main(void)
 		if (input == "exit") break;
 
 		CVNT::Packet packet = { };
-		packet.m_ID = Client->m_ID;
 		packet.m_Type = CVNT::PacketType::TEST;
 		
 		packet.Send(Client->m_Socket);

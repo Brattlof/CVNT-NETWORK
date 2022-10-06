@@ -14,7 +14,7 @@ Network::~Network(void)
 	WSACleanup();
 }
 
-void Network::SetListener(std::function<void(Packet)> listener)
+void Network::SetListener(std::function<void(Packet, unsigned int)> listener)
 {
 	m_Listener = listener;
 }
@@ -91,10 +91,9 @@ void Network::Accept(void)
 			//
 			LOGFMT("New client[%i] from %s", m_NextClientID, inet_ntoa(accept.sin_addr));
 			//
-			m_Clients.insert({ m_NextClientID, m_AcceptSocket });
+			m_Clients.insert({ m_AcceptSocket, m_NextClientID });
 			//
 			Packet packet = { };
-			packet.m_ID = m_NextClientID;
 			packet.Send(m_AcceptSocket);
 			//
 			m_NextClientID++;
@@ -110,11 +109,11 @@ void Network::Listen(void)
 	{
 		Packet packet = { };
 
-		for (auto x : m_Clients)
+		for (auto client : m_Clients)
 		{
-			if (packet.Receive(x.second) > 0)
+			if (packet.Receive(client.first) > 0)
 			{
-				m_Listener(packet);
+				m_Listener(packet, client.second);
 			}
 		}
 	}

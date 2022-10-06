@@ -49,7 +49,6 @@ bool Client::Connect(void)
 
 	Packet packet = { };
 	packet.Receive(m_Socket);
-	m_ID = packet.m_ID;
 
 	u_long im = 1;
 	if (ioctlsocket(m_Socket, FIONBIO, &im) == SOCKET_ERROR)

@@ -4,14 +4,11 @@
 
 namespace CVNT
 {
-	typedef unsigned int ClientID;
-
 	enum class PacketType;
 
 	struct Packet
 	{
 		PacketType m_Type;
-		ClientID m_ID;
 
 		unsigned int m_DataSize;
 		char* m_Data;
