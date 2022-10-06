@@ -16,19 +16,19 @@ void Listener(CVNT::Packet packet, unsigned int client_id)
 	{
 		case CVNT::PacketType::EVENT:
 		{
-			LOGFMT("Client[%i] event packet socket[%i]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] event packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 
 		case CVNT::PacketType::TEST:
 		{
-			LOGFMT("Client[%i] test packet socket[%i]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] test packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 
 		default:
 		{
-			LOGFMT("Client[%i] unknown packet socket[%i]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] unknown packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
 			break;
 		}
 	}

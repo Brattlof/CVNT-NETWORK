@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __NETWORK__H
+#define __NETWORK__H
 
 #include <CVNT.hpp>
 
@@ -33,3 +34,5 @@ namespace CVNT
 		std::function<void(Packet, unsigned int /* CLIENT ID */)> m_Listener;
 	};
 }
+
+#endif
