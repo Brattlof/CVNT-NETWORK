@@ -21,7 +21,7 @@ workspace "CVNT"
 	
 	includedirs
 	{
-		"%{wks.location}/Includes",
+		"%{wks.location}/Source",
 	}
 	
 	filter "system:windows"
@@ -46,8 +46,8 @@ project "Network"
 	{
 		"Source/**.c",
 		"Source/**.cpp",
-		"Includes/**.h",
-		"Includes/**.hpp"
+		"Source/**.h",
+		"Source/**.hpp"
 	}
 	
 include "Examples"
