@@ -1,5 +1,7 @@
 #pragma once
 
+#define DATASIZE 32
+
 namespace CVNT
 {
 	typedef unsigned int ClientID;
@@ -12,18 +14,18 @@ namespace CVNT
 			EVENT
 		};
 
+		struct EventData
+		{
+			char Event[32] = { 0 };
+		};
+
 		Type m_Type;
 		ClientID m_ID;
 
-		void Serialize(char* data)
+		union
 		{
-			memcpy(data, this, sizeof(Packet));
-		}
-
-		void Deserialize(char* data)
-		{
-			memcpy(this, data, sizeof(Packet));
-		}
+			EventData m_EventData;
+		};
 
 		int Send(SOCKET socket)
 		{

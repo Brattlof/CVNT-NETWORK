@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Network/Network.hpp"
+#include <Network/Network.hpp>
 
 void Listener(CVNT::Packet packet)
 {
@@ -14,7 +14,7 @@ void Listener(CVNT::Packet packet)
 
 		case CVNT::Packet::EVENT:
 		{
-			LOGFMT("Client[%i] event packet", packet.m_ID);
+			LOGFMT("Client[%i] event packet %s", packet.m_ID, packet.m_EventData.Event);
 			break;
 		}
 		

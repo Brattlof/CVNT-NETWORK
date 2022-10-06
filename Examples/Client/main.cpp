@@ -15,10 +15,6 @@ int main(void)
 
 	LOG("Connected");
 
-	CVNT::Packet packet = { };
-	packet.m_ID = Client->m_ID;
-	packet.m_Type = CVNT::Packet::EVENT;
-
 	while (true)
 	{
 		std::string input;
@@ -26,6 +22,14 @@ int main(void)
 
 		if (input == "exit") break;
 
+		CVNT::Packet packet = { };
+		packet.m_ID = Client->m_ID;
+		packet.m_Type = CVNT::Packet::EVENT;
+		for (int i = 0; i < input.length() && i < 31; i++)
+		{
+			packet.m_EventData.Event[i] = input[i];
+		}
+		
 		packet.Send(Client->m_Socket);
 	}
 
