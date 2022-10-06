@@ -2,25 +2,23 @@
 
 #include <Network/Network.hpp>
 
+enum class CVNT::PacketType // Example
+{
+	EVENT
+};
+
 void Listener(CVNT::Packet packet)
 {
 	switch (packet.m_Type)
 	{
-		case CVNT::Packet::DISCONNECTED:
+		case CVNT::PacketType::EVENT:
 		{
-			LOGFMT("Client[%i] disconnect packet", packet.m_ID);
+			LOGFMT("Client[%i] event packet", packet.m_ID);
 			break;
 		}
 
-		case CVNT::Packet::EVENT:
-		{
-			LOGFMT("Client[%i] event packet %s", packet.m_ID, packet.m_EventData.Event);
-			break;
-		}
-		
 		default:
 		{
-			LOGFMT("Client[%i] unknown packet", packet.m_ID);
 			break;
 		}
 	}

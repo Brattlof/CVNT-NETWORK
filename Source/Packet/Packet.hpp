@@ -6,35 +6,22 @@ namespace CVNT
 {
 	typedef unsigned int ClientID;
 
+	enum class PacketType;
+
 	struct Packet
 	{
-		enum Type
-		{
-			DISCONNECTED,
-			EVENT
-		};
-
-		struct EventData
-		{
-			char Event[32] = { 0 };
-		};
-
-		Type m_Type;
+		PacketType m_Type;
 		ClientID m_ID;
-
-		union
-		{
-			EventData m_EventData;
-		};
+		char* m_Data;
 
 		int Send(SOCKET socket)
 		{
-			return send(socket, (char*)this, sizeof(Packet), NULL);
+			return send(socket, (char*)this, sizeof(*this), NULL);
 		}
 
 		int	Receive(SOCKET socket)
 		{
-			return recv(socket, (char*)this, sizeof(Packet), NULL);
+			return recv(socket, (char*)this, sizeof(*this), NULL);
 		}
 	};
 }
