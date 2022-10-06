@@ -26,10 +26,11 @@ int main(void)
 		std::string input;
 		std::cin >> input;
 
-		if (input == "exit") break;
-
 		CVNT::Packet packet = { };
-		packet.m_Type = CVNT::PacketType::TEST;
+
+		if (input == "exit") break;
+		if (input == "event") packet.m_Type = CVNT::PacketType::EVENT;
+		else packet.m_Type = CVNT::PacketType::TEST;
 		
 		packet.Send(Client->m_Socket);
 	}
