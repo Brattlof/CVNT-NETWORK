@@ -107,7 +107,7 @@ void Server::Listen(void)
 	{
 		Packet packet = { };
 
-		for (auto client : m_Clients)
+		for (auto& client : m_Clients)
 		{
 			if (packet.Receive(client.second) > 0)
 			{
