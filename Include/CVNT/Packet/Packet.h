@@ -13,17 +13,17 @@ namespace CVNT
 	{
 		PacketType m_Type;
 
-		unsigned int m_DataSize;
 		char* m_Data;
+		unsigned int m_DataSize;
 
 		int Send(SOCKET socket)
 		{
-			return send(socket, (char*)this, sizeof(*this), NULL);
+			return send(socket, (char*)this, sizeof(Packet), NULL);
 		}
 
 		int	Receive(SOCKET socket)
 		{
-			return recv(socket, (char*)this, sizeof(*this), NULL);
+			return recv(socket, (char*)this, sizeof(Packet), NULL);
 		}
 	};
 }
