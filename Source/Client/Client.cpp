@@ -1,4 +1,4 @@
-#include <CVNT/Client/Client.hpp>
+#include <CVNT/Client/Client.h>
 
 using namespace CVNT;
 

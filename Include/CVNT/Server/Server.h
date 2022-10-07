@@ -1,8 +1,8 @@
 #ifndef __SERVER__H
 #define __SERVER__H
 
-#include <CVNT/CVNT.hpp>
-#include <CVNT/Packet/Packet.hpp>
+#include <CVNT/CVNT.h>
+#include <CVNT/Packet/Packet.h>
 
 namespace CVNT
 {

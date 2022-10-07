@@ -1,4 +1,4 @@
-#include <CVNT/Server/Server.hpp>
+#include <CVNT/Server/Server.h>
 
 using namespace CVNT;
 

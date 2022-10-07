@@ -1,7 +1,8 @@
-#pragma once
+#ifndef __CLIENT__H
+#define __CLIENT__H
 
-#include <CVNT/CVNT.hpp>
-#include <CVNT/Packet/Packet.hpp>
+#include <CVNT/CVNT.h>
+#include <CVNT/Packet/Packet.h>
 
 namespace CVNT
 {
@@ -20,3 +21,5 @@ namespace CVNT
 		SOCKET m_Socket = NULL;
 	};
 }
+
+#endif

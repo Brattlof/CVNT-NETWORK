@@ -1,4 +1,7 @@
-#pragma once
+#ifndef __PACKET__H
+#define __PACKET__H
+
+#include <CVNT/CVNT.h>
 
 #define DATASIZE 32
 
@@ -24,3 +27,5 @@ namespace CVNT
 		}
 	};
 }
+
+#endif

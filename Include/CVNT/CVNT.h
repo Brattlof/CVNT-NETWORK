@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __CVNT__H
+#define __CVNT__H
 
 // WINSOCK
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -16,4 +17,6 @@
 #else
 #define LOG(...)
 #define LOGFMT(...)
+#endif
+
 #endif

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <CVNT/Server/Server.hpp>
+#include <CVNT/Server/Server.h>
 
 enum class CVNT::PacketType // Example
 {
