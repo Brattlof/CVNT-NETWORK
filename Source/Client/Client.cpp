@@ -1,6 +1,4 @@
-#include <CVNT.hpp>
-
-#include <Client/Client.hpp>
+#include <CVNT/Client/Client.hpp>
 
 using namespace CVNT;
 

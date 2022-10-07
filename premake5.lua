@@ -21,7 +21,7 @@ workspace "CVNT"
 	
 	includedirs
 	{
-		"%{wks.location}/Source",
+		"%{wks.location}/Include",
 	}
 	
 	filter "system:windows"
@@ -39,15 +39,12 @@ project "Network"
 	location "Source"
 	kind "StaticLib"
 	
-	pchheader "CVNT.hpp"
-	pchsource "Source/CVNT.cpp"
-	
 	files
 	{
 		"Source/**.c",
 		"Source/**.cpp",
-		"Source/**.h",
-		"Source/**.hpp"
+		"Include/**/**.h",
+		"Include/**/**.hpp"
 	}
 	
 include "Examples"

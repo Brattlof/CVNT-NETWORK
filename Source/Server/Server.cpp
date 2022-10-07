@@ -1,12 +1,10 @@
-#include <CVNT.hpp>
-
-#include <Network/Network.hpp>
+#include <CVNT/Server/Server.hpp>
 
 using namespace CVNT;
 
-Network::Network(u_short port) : m_Port(port), m_NextClientID(1) { }
+Server::Server(u_short port) : m_Port(port), m_NextClientID(1) { }
 
-Network::~Network(void)
+Server::~Server(void)
 {
 	closesocket(m_AcceptSocket);
 	closesocket(m_Socket);
@@ -14,12 +12,12 @@ Network::~Network(void)
 	WSACleanup();
 }
 
-void Network::SetListener(std::function<void(Packet, unsigned int)> listener)
+void Server::SetListener(std::function<void(Packet, unsigned int)> listener)
 {
 	m_Listener = listener;
 }
 
-bool Network::Start(void)
+bool Server::Start(void)
 {
 	if (!m_Listener)
 	{
@@ -67,14 +65,14 @@ bool Network::Start(void)
 		return false;
 	}
 	//
-	std::thread(&Network::Accept, this).join();
+	std::thread(&Server::Accept, this).join();
 
 	return true;
 }
 
-void Network::Accept(void)
+void Server::Accept(void)
 {
-	std::thread listener(&Network::Listen, this);
+	std::thread listener(&Server::Listen, this);
 
 	while (true)
 	{
@@ -103,7 +101,7 @@ void Network::Accept(void)
 	listener.join();
 }
 
-void Network::Listen(void)
+void Server::Listen(void)
 {
 	while (true)
 	{

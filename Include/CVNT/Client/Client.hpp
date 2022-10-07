@@ -1,8 +1,7 @@
 #pragma once
 
-#include <CVNT.hpp>
-
-#include "Packet/Packet.hpp"
+#include <CVNT/CVNT.hpp>
+#include <CVNT/Packet/Packet.hpp>
 
 namespace CVNT
 {

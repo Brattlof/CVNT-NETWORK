@@ -1,18 +1,16 @@
-#ifndef __NETWORK__H
-#define __NETWORK__H
+#ifndef __SERVER__H
+#define __SERVER__H
 
-#include <CVNT.hpp>
-
-#include "Client/Client.hpp"
-#include "Packet/Packet.hpp"
+#include <CVNT/CVNT.hpp>
+#include <CVNT/Packet/Packet.hpp>
 
 namespace CVNT
 {
-	class Network
+	class Server
 	{
 	public:
-		Network(u_short port);
-		~Network(void);
+		Server(u_short port);
+		~Server(void);
 
 		void SetListener(std::function<void(Packet, unsigned int /* CLIENT ID */)> listener);
 		bool Start(void);

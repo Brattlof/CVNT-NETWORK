@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <Network/Network.hpp>
+#include <CVNT/Server/Server.hpp>
 
 enum class CVNT::PacketType // Example
 {
@@ -8,7 +8,7 @@ enum class CVNT::PacketType // Example
 	TEST
 };
 
-CVNT::Network Network(666);
+CVNT::Server Server(666);
 
 void Listener(CVNT::Packet packet, unsigned int client_id)
 {
@@ -16,19 +16,19 @@ void Listener(CVNT::Packet packet, unsigned int client_id)
 	{
 		case CVNT::PacketType::EVENT:
 		{
-			LOGFMT("Client[%i] event packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] event packet socket[%Ii]", client_id, Server.m_Clients[client_id]);
 			break;
 		}
 
 		case CVNT::PacketType::TEST:
 		{
-			LOGFMT("Client[%i] test packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] test packet socket[%Ii]", client_id, Server.m_Clients[client_id]);
 			break;
 		}
 
 		default:
 		{
-			LOGFMT("Client[%i] unknown packet socket[%Ii]", client_id, Network.m_Clients[client_id]);
+			LOGFMT("Client[%i] unknown packet socket[%Ii]", client_id, Server.m_Clients[client_id]);
 			break;
 		}
 	}
@@ -36,9 +36,9 @@ void Listener(CVNT::Packet packet, unsigned int client_id)
 
 int main(void)
 {
-	Network.SetListener(Listener);
+	Server.SetListener(Listener);
 
-	if (!Network.Start())
+	if (!Server.Start())
 		return 0x1;
 
 	return 0x0;
